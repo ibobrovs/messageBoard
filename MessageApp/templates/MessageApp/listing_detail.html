@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ listing.title }}</title>
+</head>
+<body>
+    <h1>{{ listing.title }}</h1>
+    <p><strong>Категория:</strong> {{ listing.get_category_display }}</p>
+    <p>{{ listing.content }}</p>
+
+    {% if user.is_authenticated %}
+        <h2>Оставить отклик</h2>
+        <form method="post">
+            {% csrf_token %}
+            <textarea name="response_text" rows="4" cols="50" placeholder="Ваш отклик..."></textarea><br>
+            <button type="submit">Отправить</button>
+        </form>
+    {% else %}
+        <p>Только зарегистрированные пользователи могут оставлять отклики.</p>
+        <p><a href="{% url 'login' %}">Войти</a> или <a href="{% url 'register' %}">Зарегистрироваться</a></p>
+    {% endif %}
+</body>
+</html>

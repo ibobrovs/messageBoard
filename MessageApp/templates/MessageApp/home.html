@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Главная</title>
+</head>
+<body>
+    <h1>Объявления</h1>
+
+    {% if listings %}
+        <ul>
+            {% for listing in listings %}
+                <li>
+                    <strong>{{ listing.title }}</strong> ({{ listing.get_category_display }})<br>
+                    {{ listing.content|truncatewords:20 }}
+                    <br>
+                    <a href="{% url 'listing_detail' listing.id %}">Читать полностью</a>
+                </li>
+            {% endfor %}
+        </ul>
+    {% else %}
+        <p>Объявлений пока нет.</p>
+    {% endif %}
+
+    {% if user.is_authenticated %}
+        <a href="{% url 'create_listing' %}">Создать объявление</a>
+        <a href="{% url 'user_responses' %}">Мои отклики</a>
+    {% else %}
+        <p>Создать объявление могут только зарегистрированные пользователи.</p>
+        <p><a href="{% url 'register' %}">Зарегистрироваться</a></p>
+        <p>Уже есть аккаунт? <a href="{% url 'login' %}">Войти</a></p>
+    {% endif %}
+</body>
+</html>

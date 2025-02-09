@@ -1,0 +1,20 @@
+
+{% block content %}
+<h2>Создать объявление</h2>
+<form method="post">
+    {% csrf_token %}
+    <div>
+        {{ form.title.label_tag }}
+        {{ form.title }}
+    </div>
+    <div>
+        {{ form.content.label_tag }}
+        {{ form.content }}
+    </div>
+    <div>
+        {{ form.category.label_tag }}
+        {{ form.category }}
+    </div>
+    <button type="submit">Создать</button>
+</form>
+{% endblock %}
